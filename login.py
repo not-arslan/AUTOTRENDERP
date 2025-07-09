@@ -12,19 +12,19 @@ def angel_login():
 
         obj = SmartConnect(api_key=api_key)
 
-        # Generate TOTP code
-        totp = pyotp.TOTP(totp_secret)
-        totp_code = totp.now()
+        # Generate TOTP
+        totp_code = pyotp.TOTP(totp_secret).now()
 
-        # Login Session
-        session = obj.generateSession(client_id, password, totp_code)
+        # Login
+        data = obj.generateSession(client_id, password, totp_code)
 
+        # Save tokens
         st.session_state["angel_object"] = obj
-        st.session_state["feed_token"] = session["data"]["feedToken"]
-        st.session_state["refresh_token"] = session["data"]["refreshToken"]
+        st.session_state["feed_token"] = data["data"]["feedToken"]
+        st.session_state["refresh_token"] = data["data"]["refreshToken"]
 
         return obj
 
     except Exception as e:
-        st.error(f"Login Failed: {e}")
+        st.error(f"Angel One login failed: {e}")
         return None
