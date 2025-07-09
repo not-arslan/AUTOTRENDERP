@@ -1,51 +1,24 @@
 import streamlit as st
-from components.auth import login_user
-from components.pcr import render_pcr
-from components.option_chain import render_option_chain
-from components.sector_heatmap import render_heatmap
-from components.calls import render_calls
-from components.chatbot import render_chatbot
-from components.news import render_news
-from components.swing_positional import render_swing_calls
-from components.charts import render_charts
 
-st.set_page_config(page_title="FS Traders Official", layout="wide")
+def render_charts(lang):
+    st.markdown("## 📈 Live Charts & Technicals")
 
-if 'theme' not in st.session_state:
-    st.session_state.theme = 'dark'
+    if lang == "Hindi":
+        st.info("यह सेक्शन चार्ट, तकनीकी संकेतक और विश्लेषण दिखाएगा।")
+    elif lang == "Hinglish":
+        st.info("Yeh section charts aur indicators ka combo dikhayega.")
+    else:
+        st.info("This section will show live charts, indicators, and technical insights.")
 
-lang = st.sidebar.selectbox("Language / भाषा", ["English", "Hindi", "Hinglish"])
+    st.markdown("---")
+    st.subheader("🧠 TradingView Widget")
 
-if not login_user():
-    st.stop()
+    # Embed a TradingView widget (replace symbol if needed)
+    tradingview_html = """
+    <iframe src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=en#%7B%22symbol%22%3A%22MCX%3ACRUDEOIL1%21%22%2C%22width%22%3A%22600%22%2C%22height%22%3A%22350%22%2C%22locale%22%3A%22en%22%2C%22dateRange%22%3A%22D%22%2C%22colorTheme%22%3A%22dark%22%2C%22isTransparent%22%3Afalse%2C%22autosize%22%3Afalse%2C%22largeChartUrl%22%3A%22%22%7D" 
+    width="100%" height="350" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+    """
+    st.components.v1.html(tradingview_html, height=370, scrolling=False)
 
-page = st.sidebar.radio("📊 Navigate", [
-    "📌 PCR Dashboard",
-    "📈 Option Chain",
-    "🔥 Sector Heatmap",
-    "🤖 AI Auto Calls",
-    "📊 Swing/Positional",
-    "📈 Charts",
-    "📰 News",
-    "💬 NIFTY.AI"
-])
-
-if page == "📌 PCR Dashboard":
-    render_pcr(lang)
-elif page == "📈 Option Chain":
-    render_option_chain(lang)
-elif page == "🔥 Sector Heatmap":
-    render_heatmap(lang)
-elif page == "🤖 AI Auto Calls":
-    render_calls(lang)
-elif page == "📊 Swing/Positional":
-    render_swing_calls(lang)
-elif page == "📈 Charts":
-    render_charts(lang)
-elif page == "📰 News":
-    render_news(lang)
-elif page == "💬 NIFTY.AI":
-    render_chatbot(lang)
-
-st.markdown("---")
-st.markdown("Built with ❤️ by FS Traders Official")
+    st.markdown("---")
+    st.write("📌 You can add more indicators here (like RSI, MACD, EMA crossover etc).")
