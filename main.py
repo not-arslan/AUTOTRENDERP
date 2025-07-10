@@ -73,7 +73,7 @@ if page == "📌 PCR Dashboard":
 elif page == "📈 Option Chain":
     st.title("📈 Option Chain")
 
-    # Dummy Data - Replace with Angel API Call
+    # Dummy Data - Replace with Angel API Call later
     option_data = [
         {"Strike": 47500, "CE_LTP": 105, "CE_OI": 95000, "PE_OI": 120000, "PE_LTP": 98},
         {"Strike": 47600, "CE_LTP": 90,  "CE_OI": 102000, "PE_OI": 110500, "PE_LTP": 110},
