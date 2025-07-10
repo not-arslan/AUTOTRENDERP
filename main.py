@@ -1,3 +1,6 @@
+# FS Traders Official - AI Powered Stock Market Dashboard
+# main.py - Streamlit Dashboard Launcher
+
 import streamlit as st
 import pyotp
 import requests
@@ -5,9 +8,9 @@ import json
 import pandas as pd
 from datetime import datetime
 
-# ------------------------------------------
+# ---------------------------
 # Config
-# ------------------------------------------
+# ---------------------------
 st.set_page_config(page_title="FS Traders Official", layout="wide")
 
 if 'theme' not in st.session_state:
@@ -15,9 +18,9 @@ if 'theme' not in st.session_state:
 
 lang = st.sidebar.selectbox("Language / भाषा", ["English", "Hindi", "Hinglish"])
 
-# ------------------------------------------
-# Angel One Auto Login with TOTP
-# ------------------------------------------
+# ---------------------------
+# AngelOne Auto Login
+# ---------------------------
 st.sidebar.title("🔐 FS Traders Login")
 
 try:
@@ -26,7 +29,7 @@ try:
     password = st.secrets["angelone"]["password"]
     totp_secret = st.secrets["angelone"]["totp_secret"]
 except:
-    st.error("⚠️ Please set credentials in .streamlit/secrets.toml")
+    st.error("⚠️ AngelOne credentials missing in secrets.")
     st.stop()
 
 if 'angel_token' not in st.session_state:
@@ -52,9 +55,9 @@ if 'angel_token' not in st.session_state:
         st.sidebar.error(f"❌ Error: {e}")
         st.stop()
 
-# ------------------------------------------
+# ---------------------------
 # Sidebar Navigation
-# ------------------------------------------
+# ---------------------------
 page = st.sidebar.radio("📊 Navigate", [
     "📌 PCR Dashboard",
     "📈 Option Chain",
@@ -62,9 +65,9 @@ page = st.sidebar.radio("📊 Navigate", [
     "📉 Charts"
 ])
 
-# ------------------------------------------
-# Page Renders
-# ------------------------------------------
+# ---------------------------
+# Render Pages
+# ---------------------------
 
 if page == "📌 PCR Dashboard":
     st.title("📌 PCR Dashboard")
@@ -73,7 +76,6 @@ if page == "📌 PCR Dashboard":
 elif page == "📈 Option Chain":
     st.title("📈 Option Chain")
 
-    # Dummy Data - Replace with Angel API Call later
     option_data = [
         {"Strike": 47500, "CE_LTP": 105, "CE_OI": 95000, "PE_OI": 120000, "PE_LTP": 98},
         {"Strike": 47600, "CE_LTP": 90,  "CE_OI": 102000, "PE_OI": 110500, "PE_LTP": 110},
@@ -123,14 +125,15 @@ elif page == "📰 Crude News":
             st.markdown("---")
 
     except Exception as e:
-        st.error("❌ News Fetch Error")
+        st.error("Unable to load news feed.")
 
 elif page == "📉 Charts":
-    st.title("📉 Price Charts")
-    st.markdown("🛠 Coming Soon: Real-time chart using TradingView or Plotly")
+    st.title("📉 Crude Oil Chart")
+    st.info("Coming Soon: Live MCX charts via TradingView or Plotly")
 
-# ------------------------------------------
+# ---------------------------
 # Footer
-# ------------------------------------------
+# ---------------------------
 st.markdown("---")
 st.markdown("Built with ❤️ by FS Traders Official")
+
