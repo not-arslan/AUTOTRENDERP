@@ -1,30 +1,35 @@
 import streamlit as st
-from smartapi import SmartConnect
-import pyotp
 
-@st.cache_resource(show_spinner=False)
-def angel_login():
-    try:
-        api_key = st.secrets["angelone"]["api_key"]
-        client_id = st.secrets["angelone"]["client_id"]
-        password = st.secrets["angelone"]["password"]
-        totp_secret = st.secrets["angelone"]["totp_secret"]
+# Dummy database (you can connect this to your real DB or Google Sheet later)
+USERS = {
+    "fsadmin@gmail.com": {
+        "password": "admin123",
+        "role": "admin"
+    },
+    "testuser@gmail.com": {
+        "password": "test123",
+        "role": "user"
+    }
+}
 
-        obj = SmartConnect(api_key=api_key)
+def login_user():
+    st.sidebar.subheader("Login")
 
-        # Generate TOTP
-        totp_code = pyotp.TOTP(totp_secret).now()
+    email = st.sidebar.text_input("Email", key="email_login")
+    password = st.sidebar.text_input("Password", type="password", key="pass_login")
 
-        # Login
-        data = obj.generateSession(client_id, password, totp_code)
+    if st.sidebar.button("🔓 Login"):
+        user = USERS.get(email)
+        if user and user["password"] == password:
+            st.session_state.logged_in = True
+            st.session_state.user_email = email
+            st.session_state.user_role = user["role"]
+            st.success(f"✅ Logged in as {email}")
+            return True
+        else:
+            st.sidebar.error("❌ Invalid Credentials")
+            return False
 
-        # Save tokens
-        st.session_state["angel_object"] = obj
-        st.session_state["feed_token"] = data["data"]["feedToken"]
-        st.session_state["refresh_token"] = data["data"]["refreshToken"]
-
-        return obj
-
-    except Exception as e:
-        st.error(f"Angel One login failed: {e}")
-        return None
+    if st.session_state.get("logged_in"):
+        return True
+    return False
