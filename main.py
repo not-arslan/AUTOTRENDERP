@@ -8,14 +8,14 @@ import pandas as pd
 
 # ---------------------------
 Config
----------------------------
+# ---------------------------
 st.set_page_config(page_title="FS Traders Official", layout="wide")
 
 lang = st.sidebar.selectbox("Language / भाषा", ["English", "Hindi", "Hinglish"])
 
----------------------------
+# ---------------------------
 Sidebar Navigation
----------------------------
+# ---------------------------
 page = st.sidebar.radio("📊 Navigate", [
 "📌 PCR Dashboard",
 "📈 Option Chain",
@@ -26,9 +26,9 @@ page = st.sidebar.radio("📊 Navigate", [
 "💡 AI Calls"
 ])
 
----------------------------
+# ---------------------------
 Render Pages
----------------------------
+# ---------------------------
 if page == "📌 PCR Dashboard":
 st.title("📌 PCR Dashboard")
 st.info("📡 Live PCR chart using real-time option data coming soon...")
@@ -84,8 +84,8 @@ render_sector_heatmap()
 elif page == "💡 AI Calls":
 render_calls(lang)
 
----------------------------
+# ---------------------------
 Footer
----------------------------
+# ---------------------------
 st.markdown("---")
 st.markdown("Built with ❤️ by FS Traders Official")
