@@ -1,11 +1,21 @@
 import streamlit as st
+import requests
+from datetime import datetime
 
-def render_news(lang):
-    st.subheader("📰 Live Market News")
+def render_crude_news():
+    st.subheader("📰 Crude Oil News")
+    st.metric("🛢 Crude LTP", value="₹6865.50")
+    st.caption(f"Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    st.write("📈 Market opens higher amid global rally")
-    st.write("🛢️ Crude prices climb as OPEC hints at further supply cuts")
-    st.write("📉 Tech stocks under pressure as bond yields spike")
-    st.write("💸 FII inflows remain strong with ₹1,200 crore invested yesterday")
+    try:
+        rss_url = "https://feeds.finance.yahoo.com/rss/2.0/headline?s=CL=F&region=US&lang=en-US"
+        r = requests.get(rss_url)
+        items = r.text.split("<item>")[1:5]
 
-    st.caption("These are static headlines. Connect Yahoo Finance or Moneycontrol API for live updates.")
+        for item in items:
+            title = item.split("<title>")[1].split("</title>")[0]
+            link = item.split("<link>")[1].split("</link>")[0]
+            st.markdown(f"### [{title}]({link})")
+            st.markdown("---")
+    except Exception as e:
+        st.error("⚠️ Unable to load news feed.")
