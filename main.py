@@ -27,7 +27,7 @@ page = st.sidebar.radio("📊 Navigate", [
 ])
 
 # ---------------------------
-Render Pages
+# Render Pages
 # ---------------------------
 if page == "📌 PCR Dashboard":
 st.title("📌 PCR Dashboard")
@@ -85,7 +85,7 @@ elif page == "💡 AI Calls":
 render_calls(lang)
 
 # ---------------------------
-Footer
+# 
 # ---------------------------
 st.markdown("---")
 st.markdown("Built with ❤️ by FS Traders Official")
