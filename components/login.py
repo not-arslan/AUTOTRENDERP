@@ -5,7 +5,6 @@ import json
 
 def angel_login():
     st.sidebar.title("🔐 FS Traders Login")
-
     try:
         api_key = st.secrets["angelone"]["api_key"]
         client_id = st.secrets["angelone"]["client_id"]
@@ -19,7 +18,6 @@ def angel_login():
         totp = pyotp.TOTP(totp_secret).now()
         payload = {"client_id": client_id, "password": password, "totp": totp}
         headers = {"Content-Type": "application/json"}
-
         try:
             res = requests.post("https://smartapi.angelbroking.com/v1.0/session", headers=headers, data=json.dumps(payload))
             data = res.json()
