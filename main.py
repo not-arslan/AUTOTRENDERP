@@ -47,3 +47,24 @@ elif page == "🔥 Sector Heatmap":
 
 st.markdown("---")
 st.markdown("Built with ❤️ by FS Traders Official")
+import streamlit as st
+from components.admin_login import login_admin
+from components.broker_login import angel_login
+
+st.set_page_config(page_title="FS Traders Official", layout="wide")
+
+admin_logged_in = login_admin()
+if admin_logged_in:
+    token = angel_login()
+
+    st.sidebar.success("All systems go!")
+    page = st.sidebar.radio("Navigation", ["📈 Dashboard", "📉 Charts"])
+
+    if page == "📈 Dashboard":
+        st.title("📈 Dashboard")
+        st.write("Your live market content goes here.")
+    elif page == "📉 Charts":
+        st.title("📉 Charts")
+        st.write("Your charts or trading view integration here.")
+else:
+    st.stop()
