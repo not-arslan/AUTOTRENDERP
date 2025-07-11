@@ -6,7 +6,7 @@ from components.sector_heatmap import render_sector_heatmap
 from components.calls import render_calls
 import pandas as pd
 
----------------------------
+# ---------------------------
 Config
 ---------------------------
 st.set_page_config(page_title="FS Traders Official", layout="wide")
