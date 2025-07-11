@@ -8,14 +8,20 @@ def render_crude_news():
     st.caption(f"Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
     try:
+        # Yahoo Finance Crude Oil RSS feed
         rss_url = "https://feeds.finance.yahoo.com/rss/2.0/headline?s=CL=F&region=US&lang=en-US"
-        r = requests.get(rss_url)
-        items = r.text.split("<item>")[1:5]
-
-        for item in items:
-            title = item.split("<title>")[1].split("</title>")[0]
-            link = item.split("<link>")[1].split("</link>")[0]
-            st.markdown(f"### [{title}]({link})")
-            st.markdown("---")
+        response = requests.get(rss_url)
+        if response.status_code == 200:
+            items = response.text.split("<item>")[1:6]  # Get top 5 articles
+            for item in items:
+                try:
+                    title = item.split("<title>")[1].split("</title>")[0]
+                    link = item.split("<link>")[1].split("</link>")[0]
+                    st.markdown(f"### 🔗 [{title}]({link})", unsafe_allow_html=True)
+                    st.markdown("---")
+                except Exception as inner_e:
+                    st.warning("⚠️ Could not parse a news item.")
+        else:
+            st.error("❌ Failed to fetch news feed.")
     except Exception as e:
-        st.error("⚠️ Unable to load news feed.")
+        st.error(f"⚠️ Error fetching news: {e}")
