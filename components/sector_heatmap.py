@@ -1,8 +1,21 @@
 import streamlit as st
+import pandas as pd
 
-def render_heatmap(lang):
-    st.subheader("🔥 Sector Heatmap")
+def render_sector_heatmap():
+    st.subheader("🔥 Sector Heatmap (Mock)")
 
-    st.image("https://i.imgur.com/OfN2z5N.png", caption="Sector Performance Heatmap")
+    # Placeholder data
+    data = {
+        "Sector": ["IT", "Auto", "Banking", "FMCG", "Pharma"],
+        "Change %": [1.25, -0.4, 0.8, -1.1, 2.3]
+    }
+    df = pd.DataFrame(data)
 
-    st.caption("This is a sample static heatmap. In the full version, this will be updated every 3 minutes using real-time data.")
+    def highlight(val):
+        if val > 0:
+            return "background-color: lightgreen"
+        elif val < 0:
+            return "background-color: salmon"
+        return ""
+
+    st.dataframe(df.style.applymap(highlight, subset=["Change %"]))
