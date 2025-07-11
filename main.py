@@ -13,9 +13,9 @@ st.set_page_config(page_title="FS Traders Official", layout="wide")
 
 lang = st.sidebar.selectbox("Language / भाषा", ["English", "Hindi", "Hinglish"])
 
-# ---------------------------
-Sidebar Navigation
-# ---------------------------
+# # ---------------------------
+# Sidebar Navigation
+# # ---------------------------
 page = st.sidebar.radio("📊 Navigate", [
 "📌 PCR Dashboard",
 "📈 Option Chain",
