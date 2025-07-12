@@ -1,9 +1,11 @@
+# FS Traders Official - AI Powered Stock Market Dashboard
+# main.py - Streamlit Dashboard Launcher
+
 import streamlit as st
+import pandas as pd
 from components.news import render_crude_news
-from components.charts import render_charts
 from components.chatbot import render_chatbot
 from components.sector_heatmap import render_sector_heatmap
-import pandas as pd
 
 # ---------------------------
 # Config
@@ -14,10 +16,8 @@ st.set_page_config(page_title="FS Traders Official", layout="wide")
 # Sidebar Navigation
 # ---------------------------
 page = st.sidebar.radio("📊 Navigate", [
-    "📌 PCR Dashboard",
-    "📈 Option Chain",
+    "📌 OI Table + PCR",
     "📰 Crude News",
-    "📉 Charts",
     "🤖 Chatbot",
     "🔥 Sector Heatmap"
 ])
@@ -25,21 +25,20 @@ page = st.sidebar.radio("📊 Navigate", [
 # ---------------------------
 # Render Pages
 # ---------------------------
-if page == "📌 PCR Dashboard":
-    st.title("📌 PCR Dashboard")
-    st.info("PCR chart using live OI data coming soon...")
 
-elif page == "📈 Option Chain":
-    st.title("📈 Option Chain")
+if page == "📌 OI Table + PCR":
+    st.title("📌 OI Table + PCR")
 
+    # Dummy sample data for now. Replace with live API logic
     option_data = [
-        {"Strike": 47500, "CE_LTP": 105, "CE_OI": 95000, "PE_OI": 120000, "PE_LTP": 98},
-        {"Strike": 47600, "CE_LTP": 90,  "CE_OI": 102000, "PE_OI": 110500, "PE_LTP": 110},
-        {"Strike": 47700, "CE_LTP": 72,  "CE_OI": 116000, "PE_OI": 108000, "PE_LTP": 120},
-        {"Strike": 47800, "CE_LTP": 55,  "CE_OI": 131000, "PE_OI": 95000,  "PE_LTP": 135},
-        {"Strike": 47900, "CE_LTP": 40,  "CE_OI": 148000, "PE_OI": 84000,  "PE_LTP": 150},
-        {"Strike": 48000, "CE_LTP": 28,  "CE_OI": 162000, "PE_OI": 73000,  "PE_LTP": 165},
+        {"Strike": 47500, "CE_OI": 95000, "PE_OI": 120000},
+        {"Strike": 47600, "CE_OI": 102000, "PE_OI": 110500},
+        {"Strike": 47700, "CE_OI": 116000, "PE_OI": 108000},
+        {"Strike": 47800, "CE_OI": 131000, "PE_OI": 95000},
+        {"Strike": 47900, "CE_OI": 148000, "PE_OI": 84000},
+        {"Strike": 48000, "CE_OI": 162000, "PE_OI": 73000},
     ]
+
     df = pd.DataFrame(option_data)
     df["PCR"] = (df["PE_OI"] / df["CE_OI"]).round(2)
 
@@ -51,11 +50,7 @@ elif page == "📈 Option Chain":
         return ""
 
     st.dataframe(
-        df.style.format({
-            "CE_LTP": "{:.2f}",
-            "PE_LTP": "{:.2f}",
-            "PCR": "{:.2f}"
-        }).applymap(color_pcr, subset=["PCR"]),
+        df.style.applymap(color_pcr, subset=["PCR"]),
         use_container_width=True
     )
 
@@ -65,9 +60,6 @@ elif page == "📈 Option Chain":
 
 elif page == "📰 Crude News":
     render_crude_news()
-
-elif page == "📉 Charts":
-    render_charts()
 
 elif page == "🤖 Chatbot":
     render_chatbot()
