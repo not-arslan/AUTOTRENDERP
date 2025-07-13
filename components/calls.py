@@ -1,11 +1,18 @@
+# components/calls.py
 
 import streamlit as st
 
-def render_calls(lang):
-    st.subheader("🤖 AI Auto Calls")
+def render_ai_calls():
+    st.subheader("🤖 AI-Powered Buy/Sell Calls")
 
-    st.success("📈 BUY: RELIANCE @ ₹2810 | SL: ₹2780 | Target: ₹2870")
-    st.info("🔍 Confidence: 91% | Based on OI buildup, Delivery, Trend")
+    st.markdown("### 📦 MCX")
+    st.success("BUY: CRUDEOIL @ ₹6850 | SL: ₹6810 | Target: ₹6950")
+    st.info("Confidence: 88% | Trapped sellers + OI support")
 
-    st.success("📉 SELL: HDFCBANK @ ₹1635 | SL: ₹1652 | Target: ₹1602")
-    st.info("🔍 Confidence: 87% | Based on RSI, Bulk Volume, OI Reversal")
+    st.markdown("### 📊 F&O")
+    st.success("BUY: RELIANCE @ ₹2820 | SL: ₹2785 | Target: ₹2890")
+    st.warning("Confidence: 92% | Based on OI, trend reversal, bulk volumes")
+
+    st.markdown("### 📈 Stocks")
+    st.error("SELL: INFY @ ₹1645 | SL: ₹1662 | Target: ₹1600")
+    st.caption("Confidence: 84% | RSI divergence, insider volume spike")
