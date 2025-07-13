@@ -1,18 +1,22 @@
-# components/calls.py
-
 import streamlit as st
 
 def render_ai_calls():
-    st.subheader("🤖 AI-Powered Buy/Sell Calls")
+    tabs = st.tabs(["📈 F&O", "🛢 MCX", "🏦 Stocks"])
 
-    st.markdown("### 📦 MCX")
-    st.success("BUY: CRUDEOIL @ ₹6850 | SL: ₹6810 | Target: ₹6950")
-    st.info("Confidence: 88% | Trapped sellers + OI support")
+    with tabs[0]:
+        st.subheader("📈 F&O Calls")
+        st.success("BUY: BANKNIFTY 47500 CE @ ₹105 | SL: ₹95 | TP: ₹130 | Confidence: 92%")
+        st.error("SELL: NIFTY 18500 PE @ ₹80 | SL: ₹90 | TP: ₹65 | Confidence: 88%")
+        st.caption("🔍 AI logic: OI buildup, trend traps, RSI reversals")
 
-    st.markdown("### 📊 F&O")
-    st.success("BUY: RELIANCE @ ₹2820 | SL: ₹2785 | Target: ₹2890")
-    st.warning("Confidence: 92% | Based on OI, trend reversal, bulk volumes")
+    with tabs[1]:
+        st.subheader("🛢 MCX Calls")
+        st.success("BUY: CRUDEOIL @ ₹6850 | SL: ₹6810 | TP: ₹6920 | Confidence: 94%")
+        st.error("SELL: NATURALGAS @ ₹215 | SL: ₹220 | TP: ₹208 | Confidence: 90%")
+        st.caption("🔍 Trend + Volume + Delivery + AI trap analysis")
 
-    st.markdown("### 📈 Stocks")
-    st.error("SELL: INFY @ ₹1645 | SL: ₹1662 | Target: ₹1600")
-    st.caption("Confidence: 84% | RSI divergence, insider volume spike")
+    with tabs[2]:
+        st.subheader("🏦 Equity Stock Calls")
+        st.success("BUY: TATASTEEL @ ₹118.5 | SL: ₹116 | TP: ₹123 | Confidence: 89%")
+        st.error("SELL: HDFCBANK @ ₹1652 | SL: ₹1668 | TP: ₹1620 | Confidence: 91%")
+        st.caption("🔍 Based on Delivery + Bulk Volume + Trend")
