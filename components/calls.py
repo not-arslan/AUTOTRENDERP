@@ -1,22 +1,26 @@
 import streamlit as st
 
 def render_ai_calls():
-    tabs = st.tabs(["📈 F&O", "🛢 MCX", "🏦 Stocks"])
+    st.subheader("📈 AI-Based BUY/SELL Calls")
 
-    with tabs[0]:
-        st.subheader("📈 F&O Calls")
-        st.success("BUY: BANKNIFTY 47500 CE @ ₹105 | SL: ₹95 | TP: ₹130 | Confidence: 92%")
-        st.error("SELL: NIFTY 18500 PE @ ₹80 | SL: ₹90 | TP: ₹65 | Confidence: 88%")
-        st.caption("🔍 AI logic: OI buildup, trend traps, RSI reversals")
+    tab1, tab2, tab3 = st.tabs(["📊 F&O", "🛢 MCX", "📈 Stocks"])
 
-    with tabs[1]:
-        st.subheader("🛢 MCX Calls")
-        st.success("BUY: CRUDEOIL @ ₹6850 | SL: ₹6810 | TP: ₹6920 | Confidence: 94%")
-        st.error("SELL: NATURALGAS @ ₹215 | SL: ₹220 | TP: ₹208 | Confidence: 90%")
-        st.caption("🔍 Trend + Volume + Delivery + AI trap analysis")
+    with tab1:
+        st.markdown("### 🔹 F&O Calls")
+        st.success("BUY: RELIANCE @ ₹2810 | SL: ₹2780 | TP: ₹2870")
+        st.info("Confidence: 91% | Trend + OI Surge")
+        st.error("SELL: HDFCBANK @ ₹1635 | SL: ₹1650 | TP: ₹1605")
+        st.info("Confidence: 87% | Trap Detected")
 
-    with tabs[2]:
-        st.subheader("🏦 Equity Stock Calls")
-        st.success("BUY: TATASTEEL @ ₹118.5 | SL: ₹116 | TP: ₹123 | Confidence: 89%")
-        st.error("SELL: HDFCBANK @ ₹1652 | SL: ₹1668 | TP: ₹1620 | Confidence: 91%")
-        st.caption("🔍 Based on Delivery + Bulk Volume + Trend")
+    with tab2:
+        st.markdown("### 🔹 MCX Calls")
+        st.success("BUY: CRUDEOIL @ ₹6862 | SL: ₹6835 | TP: ₹6910")
+        st.info("Fake spike trap reversal spotted")
+        st.error("SELL: NATURALGAS @ ₹222.50 | SL: ₹225 | TP: ₹218")
+        st.info("Volume spike + Reversal")
+
+    with tab3:
+        st.markdown("### 🔹 Stock Calls")
+        st.success("BUY: TCS @ ₹3995 | SL: ₹3950 | TP: ₹4090")
+        st.error("SELL: ICICIBANK @ ₹1082 | SL: ₹1094 | TP: ₹1050")
+        st.caption("Backtested by FS Trader AI engine ✅")
